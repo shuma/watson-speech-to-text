@@ -42,8 +42,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <a class="#" onClick={() => this.onListenClick()}>
-          <span className="microphone">Listen to microphone input</span>
+        <a className="listenButton" onClick={() => this.onListenClick()}>
+          <span>Activate you microphone</span>
         </a>
         <div className="speechtext">{this.state.text}</div>
       </div>
