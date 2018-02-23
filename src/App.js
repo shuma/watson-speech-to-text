@@ -1,11 +1,21 @@
 import React, { Component } from "react";
 import "./App.css";
-import Logo from "./mic.png";
 import recognizeMic from "watson-speech/speech-to-text/recognize-microphone";
+import styled from "styled-components";
 
 // components
 import { Loading } from "./components/animations";
 import { SpeechText } from "./components/text";
+import { Logo } from "./components/img";
+
+// container
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 12em;
+`;
 
 class App extends Component {
   constructor() {
@@ -49,7 +59,15 @@ class App extends Component {
 
   render() {
     const { loading, text } = this.state;
-    return loading ? <Loading /> : <SpeechText text={text} />;
+    return loading ? (
+      <Loading />
+    ) : (
+      <Container>
+        {" "}
+        <Logo />
+        <SpeechText text={text} />
+      </Container>
+    );
   }
 }
 

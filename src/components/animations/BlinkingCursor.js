@@ -6,7 +6,7 @@ const Blink = keyframes`
         color: transparent;
     }
     50% {
-        color: black;
+        color: #ffc702;
     }
 `;
 
