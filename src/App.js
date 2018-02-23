@@ -4,7 +4,7 @@ import Logo from "./mic.png";
 import recognizeMic from "watson-speech/speech-to-text/recognize-microphone";
 
 // components
-import { Loading, BlinkingCursor } from "./components/animations";
+import { Loading } from "./components/animations";
 import { SpeechText } from "./components/text";
 
 class App extends Component {
