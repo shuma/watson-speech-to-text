@@ -2,15 +2,10 @@ import React, { Component } from "react";
 import "./App.css";
 import Logo from "./mic.png";
 import recognizeMic from "watson-speech/speech-to-text/recognize-microphone";
-import styled from "styled-components";
 
+// components
 import { Loading, BlinkingCursor } from "./components/animations";
-
-const SpeechText = styled.div`
-  text-align: center;
-  font-size: 40px;
-  color: #000;
-`;
+import { SpeechText } from "./components/text";
 
 class App extends Component {
   constructor() {
@@ -31,7 +26,7 @@ class App extends Component {
         this.setState({
           loading: false
         });
-        var stream = recognizeMic({
+        let stream = recognizeMic({
           token: token,
           objectMode: true, // send objects instead of text
           extractResults: true, // convert {results: [{alternatives:[...]}], result_index: 0} to {alternatives: [...], index: 0}
@@ -54,13 +49,7 @@ class App extends Component {
 
   render() {
     const { loading, text } = this.state;
-    return loading ? (
-      <Loading />
-    ) : (
-      <SpeechText>
-        {text} <BlinkingCursor />
-      </SpeechText>
-    );
+    return loading ? <Loading /> : <SpeechText text={text} />;
   }
 }
 
