@@ -2,22 +2,35 @@ import React, { Component } from "react";
 import "./App.css";
 import Logo from "./mic.png";
 import recognizeMic from "watson-speech/speech-to-text/recognize-microphone";
+import styled from "styled-components";
+
+import { Loading, BlinkingCursor } from "./components/animations";
+
+const SpeechText = styled.div`
+  text-align: center;
+  font-size: 40px;
+  color: #000;
+`;
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
       text: ""
     };
   }
 
-  onListenClick() {
+  componentDidMount() {
     fetch("http://localhost:3002/api/speech-to-text/token")
       .then(function(response) {
         return response.text();
       })
       .then(token => {
         console.log("token is", token);
+        this.setState({
+          loading: false
+        });
         var stream = recognizeMic({
           token: token,
           objectMode: true, // send objects instead of text
@@ -40,13 +53,13 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <a className="listenButton" onClick={() => this.onListenClick()}>
-          <span>Activate you microphone</span>
-        </a>
-        <div className="speechtext">{this.state.text}</div>
-      </div>
+    const { loading, text } = this.state;
+    return loading ? (
+      <Loading />
+    ) : (
+      <SpeechText>
+        {text} <BlinkingCursor />
+      </SpeechText>
     );
   }
 }
